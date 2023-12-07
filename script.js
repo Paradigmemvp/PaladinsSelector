@@ -34,7 +34,28 @@ document.addEventListener("DOMContentLoaded", function () {
             portraitImg.alt = `${character} Portrait`;
             characterDiv.appendChild(portraitImg);
 
+            // Add speech bubble with character information
+            const speechBubble = document.createElement("div");
+            speechBubble.classList.add("speech-bubble");
+            speechBubble.innerText = getCharacterInformation(character);
+            characterDiv.appendChild(speechBubble);
+
             charactersContainer.appendChild(characterDiv);
         });
+    }
+
+    // Function to get character information
+    function getCharacterInformation(character) {
+        // Add logic to retrieve character information (e.g., role, abilities, etc.)
+        return `Role: ${getCharacterRole(character)}`;
+    }
+
+    // Function to get character role
+    function getCharacterRole(character) {
+        if (characters.tank.includes(character)) return "Tank";
+        if (characters.damage.includes(character)) return "Damage";
+        if (characters.flank.includes(character)) return "Flank";
+        if (characters.support.includes(character)) return "Support";
+        return "Unknown";
     }
 });
