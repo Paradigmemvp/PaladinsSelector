@@ -1,0 +1,26 @@
+/* Style for character box and role buttons */
+#characters-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.character {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px;
+    width: calc(10% - 10px); /* 10 characters per row */
+    text-align: center;
+}
+
+.character img {
+    max-width: 100%;
+    max-height: 100px; /* Set a maximum height for the portrait */
+}
+
+#role-buttons {
+    margin-top: 10px;
+}
+
+button {
+    margin-right: 5px;
+}
