@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for character click to open modal
     charactersContainer.addEventListener("click", function (event) {
-        const clickedCharacter = event.target.innerText;
+        const clickedCharacter = event.target.dataset.character;
         if (clickedCharacter) {
             displayCharacterDetails(clickedCharacter);
             modal.style.display = "block";
@@ -43,28 +43,31 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayCharacters(charactersList) {
         charactersContainer.innerHTML = ""; // Clear previous display
         charactersList.forEach(character => {
-            const characterDiv = document.createElement("div");
-            characterDiv.classList.add("character");
-            characterDiv.innerText = character;
-
-            // Add portrait image with click event
-            const portraitImg = document.createElement("img");
-            portraitImg.src = `images/${character.toLowerCase().replace(/\s/g, '-')}.jpg`;
-            portraitImg.alt = `${character} Portrait`;
-            portraitImg.addEventListener("click", () => {
-                displayCharacterDetails(character);
-                modal.style.display = "block";
-            });
-            characterDiv.appendChild(portraitImg);
-
-            // Add speech bubble with character information
-            const speechBubble = document.createElement("div");
-            speechBubble.classList.add("speech-bubble");
-            speechBubble.innerText = getCharacterInformation(character);
-            characterDiv.appendChild(speechBubble);
-
+            const characterDiv = createCharacterDiv(character);
             charactersContainer.appendChild(characterDiv);
         });
+    }
+
+    // Function to create character div
+    function createCharacterDiv(character) {
+        const characterDiv = document.createElement("div");
+        characterDiv.classList.add("character");
+        characterDiv.innerText = character;
+
+        // Add portrait image with click event
+        const portraitImg = document.createElement("img");
+        portraitImg.src = `images/${character.toLowerCase().replace(/\s/g, '-')}.jpg`;
+        portraitImg.alt = `${character} Portrait`;
+        portraitImg.dataset.character = character; // Add character data attribute
+        characterDiv.appendChild(portraitImg);
+
+        // Add speech bubble with character information
+        const speechBubble = document.createElement("div");
+        speechBubble.classList.add("speech-bubble");
+        speechBubble.innerText = getCharacterInformation(character);
+        characterDiv.appendChild(speechBubble);
+
+        return characterDiv;
     }
 
     // Function to display character details in modal
@@ -75,4 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to get character information
     function getCharacterInformation(character) {
         // Add logic to retrieve detailed character information (e.g., role, abilities, etc.)
-        return `Character: ${character}\nRole: ${getCharacterRole(character)}\n\n[Detailed information goes here
+        return `Character: ${character}\nRole: ${getCharacterRole(character)}\n\n[Detailed information goes here]`;
+    }
+
+    // Function to get character role
+    function getCharacterRole(character) {
+        if (characters.tank.includes(character)) return "Tank";
+        if (characters.damage.includes(character)) return "Damage";
+        if (characters.flank.includes(character)) return "Flank";
+        if (characters.support.includes(character)) return "Support";
+        return "Unknown";
+    }
+});
