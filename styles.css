@@ -5,6 +5,7 @@
 }
 
 .character {
+    position: relative;
     border: 1px solid #ddd;
     padding: 10px;
     margin: 5px;
@@ -15,6 +16,22 @@
 .character img {
     max-width: 100%;
     max-height: 100px; /* Set a maximum height for the portrait */
+}
+
+.character .speech-bubble {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 150px;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.character:hover .speech-bubble {
+    display: block;
 }
 
 #role-buttons {
