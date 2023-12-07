@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const charactersContainer = document.getElementById("characters-container");
     const roleButtons = document.getElementById("role-buttons");
+    const modal = document.getElementById("character-modal");
+    const characterDetails = document.getElementById("character-details");
 
     // Array of characters by role
     const characters = {
@@ -19,6 +21,23 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("damage").addEventListener("click", () => displayCharacters(characters.damage));
     document.getElementById("flank").addEventListener("click", () => displayCharacters(characters.flank));
     document.getElementById("support").addEventListener("click", () => displayCharacters(characters.support));
+
+    // Event listener for character click to open modal
+    charactersContainer.addEventListener("click", function (event) {
+        const clickedCharacter = event.target.innerText;
+        if (clickedCharacter) {
+            displayCharacterDetails(clickedCharacter);
+            modal.style.display = "block";
+        }
+    });
+
+    // Event listener to close modal
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal || event.target.classList.contains("close")) {
+            modal.style.display = "none";
+            characterDetails.innerHTML = ""; // Clear character details when closing modal
+        }
+    });
 
     // Function to display characters based on role
     function displayCharacters(charactersList) {
@@ -44,18 +63,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Function to display character details in modal
+    function displayCharacterDetails(character) {
+        characterDetails.innerHTML = getCharacterInformation(character);
+    }
+
     // Function to get character information
     function getCharacterInformation(character) {
-        // Add logic to retrieve character information (e.g., role, abilities, etc.)
-        return `Role: ${getCharacterRole(character)}`;
+        // Add logic to retrieve detailed character information (e.g., role, abilities, etc.)
+        return `Character: ${character}\nRole: ${getCharacterRole(character)}\n\n[Detailed information goes here]`;
     }
 
     // Function to get character role
     function getCharacterRole(character) {
-        if (characters.tank.includes(character)) return "Tank";
-        if (characters.damage.includes(character)) return "Damage";
-        if (characters.flank.includes(character)) return "Flank";
-        if (characters.support.includes(character)) return "Support";
-        return "Unknown";
-    }
-});
+        if (characters.tank.includes(character))
