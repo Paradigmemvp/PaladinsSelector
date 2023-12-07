@@ -47,10 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
             characterDiv.classList.add("character");
             characterDiv.innerText = character;
 
-            // Add portrait image
+            // Add portrait image with click event
             const portraitImg = document.createElement("img");
             portraitImg.src = `images/${character.toLowerCase().replace(/\s/g, '-')}.jpg`;
             portraitImg.alt = `${character} Portrait`;
+            portraitImg.addEventListener("click", () => {
+                displayCharacterDetails(character);
+                modal.style.display = "block";
+            });
             characterDiv.appendChild(portraitImg);
 
             // Add speech bubble with character information
@@ -71,9 +75,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to get character information
     function getCharacterInformation(character) {
         // Add logic to retrieve detailed character information (e.g., role, abilities, etc.)
-        return `Character: ${character}\nRole: ${getCharacterRole(character)}\n\n[Detailed information goes here]`;
-    }
-
-    // Function to get character role
-    function getCharacterRole(character) {
-        if (characters.tank.includes(character))
+        return `Character: ${character}\nRole: ${getCharacterRole(character)}\n\n[Detailed information goes here
